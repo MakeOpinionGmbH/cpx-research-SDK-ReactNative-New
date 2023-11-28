@@ -1,0 +1,38 @@
+{
+  "name": "cpx-research-sdk-reactnative-new",
+  "version": "1.0.0",
+  "description": "CPX Research SDK React Native",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MakeOpinionGmbH/cpx-research-SDK-ReactNative-New"
+  },
+  "files": [
+    "lib/*",
+    "assets/*",
+    "Readme.md"
+  ],
+  "scripts": {
+    "build": "rm -rf lib && tsc",
+    "check-types": "tsc --noEmit",
+    "lint": "yarn check-types && eslint --ext .js,.jsx,.ts,.tsx src",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dualmeta (https://www.dualmeta.io)",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/deep-equal": "^1.0.1",
+    "typescript": "^4.3.5"
+  },
+  "peerDependencies": {
+    "react-native-webview": "^13.2.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "deep-equal": "^2.0.5",
+    "immer": "^9.0.15",
+    "react-native-progress": "^5.0.0",
+    "use-immer": "^0.7.0"
+  }
+}
