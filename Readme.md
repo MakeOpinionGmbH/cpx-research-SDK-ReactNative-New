@@ -36,7 +36,7 @@ npm install cpx-research-sdk-react-native
 
 # ATTENTION: if you are using React Native upwards version 0.65.3 then you need to use an updated version:
 
-npm install cpx-research-sdk-react-native@RNv0.65.3plus
+npm install cpx-research-sdk-reactnative-new
 
 ```
 
