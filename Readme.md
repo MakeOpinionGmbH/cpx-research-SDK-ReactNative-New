@@ -189,6 +189,37 @@ const App = () => (
 );
 ```
 
+### Use sub_id1 & sub_id2
+
+If you want to add an extra subid_1 & subid_2 paramters, you will need to attach them to the userId prop like the following:
+
+```jsx
+const App = () => (
+  <>
+    <CpxResearch
+      appId="1"
+      userId="{user_id}&subid_1={XXX}&subid_2={XXX}"
+      accentColor="#ff9800"
+      cornerWidget={
+        {
+          /* ... */
+        }
+      }
+      notificationWidget={
+        {
+          /* ... */
+        }
+      }
+      sidebarWidget={
+        {
+          /* ... */
+        }
+      }
+    />
+  </>
+);
+```
+
 ## Getting Started (Expert)
 As stated above, it is possible to not pass any configuration for the corner, sidebar or notification widgets, which then means none of them will be displayed.
 This might be especially useful if you want to build your own widgets/components. 
