@@ -189,7 +189,7 @@ const App = () => (
 );
 ```
 
-### Use sub_id1 & sub_id2
+### Adding an additioanl info
 
 If you want to add an extra subid_1 & subid_2 paramters, you will need to attach them to the userId prop like the following:
 
@@ -198,7 +198,8 @@ const App = () => (
   <>
     <CpxResearch
       appId="1"
-      userId="{user_id}&subid_1={XXX}&subid_2={XXX}"
+      userId="1"
+      add_info="&subid_1=123&subid_2=345"
       accentColor="#ff9800"
       cornerWidget={
         {
