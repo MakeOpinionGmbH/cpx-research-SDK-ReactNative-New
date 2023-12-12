@@ -191,7 +191,7 @@ const App = () => (
 
 ### Adding an additioanl info
 
-If you want to add an additional info like subid_1 & subid_2 paramters, you will need to append it like the following:
+If you want to add additional informations that should be passed to the SDK please use the add_info prop and pass any param you like
 
 ```jsx
 const App = () => (
