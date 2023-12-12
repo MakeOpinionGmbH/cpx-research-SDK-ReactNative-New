@@ -191,7 +191,7 @@ const App = () => (
 
 ### Adding an additioanl info
 
-If you want to add an extra subid_1 & subid_2 paramters, you will need to attach them to the userId prop like the following:
+If you want to add an additional info like subid_1 & subid_2 paramters, you will need to append it like the following:
 
 ```jsx
 const App = () => (
