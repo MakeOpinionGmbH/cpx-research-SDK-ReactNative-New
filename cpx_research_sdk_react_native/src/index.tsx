@@ -28,6 +28,15 @@ let CpxResearch: FunctionComponent<ICpxConfig> = config =>
 
   const fetchIntervalRef = useRef<NodeJS.Timer>();
   const [appContext, appDispatch] = useImmerReducer(appReducer, getInitialAppStore(config));
+  	useEffect(() => 
+  {
+	  appDispatch({
+      actionType: "updateAppContext",
+      payload: {
+		  config,
+      }
+	  });
+  }, [config, appDispatch]);
 
   const memoizedAppContext = useMemo<IAppContext>(
     () => ({ appContext, appDispatch }),
@@ -44,7 +53,7 @@ let CpxResearch: FunctionComponent<ICpxConfig> = config =>
 
   const requestParams = useMemo(
     () => getRequestParams(config.appId, config.userId, config.add_info),
-    [config.appId, config.userId]
+    [config.appId, config.userId, config.add_info]
   );
 
   const previousSurveys = usePrevious(appContext.surveys);

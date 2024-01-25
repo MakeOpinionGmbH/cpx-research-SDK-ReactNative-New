@@ -2,67 +2,70 @@ import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 
 import { ITexts } from "../context/context";
 import { endpoints, urls } from "../utils/globals";
-import { IRequestParams } from "../utils/helpers";
+import { IRequestParams, buildQueryString } from "../utils/helpers";
 
-export interface ISurveysTransactionsTexts
+export interface ISurveysTransactionsTexts 
 {
   surveys: any[];
   texts: ITexts;
   transactions: any[];
 }
 
-export const fetchSurveysAndTransactionsApi = async (requestParams: IRequestParams): Promise<ISurveysTransactionsTexts> =>
+export const fetchSurveysAndTransactionsApi = async (requestParams: IRequestParams): Promise<ISurveysTransactionsTexts> => 
 {
   console.log("[fetchSurveysAndTransactions]");
 
   let hasAnErrorOccurred = false;
   let response: AxiosResponse | undefined;
 
-  try
+  try 
   {
-    response = await axios.get(urls.apiUrl + endpoints.surveysEndpoint, { params: requestParams });
+    const queryString = buildQueryString(requestParams);
+    response = await axios.get(urls.apiUrl + endpoints.surveysEndpoint + queryString);
   }
-  catch (e)
+  catch (e) 
   {
     console.log("an error occurred while fetching surveys and transactions: ", e);
     hasAnErrorOccurred = true;
   }
 
-  if(!hasAnErrorOccurred && response == null)
+  if(!hasAnErrorOccurred && response == null) 
   {
     console.log("an error occurred while fetching surveys and transactions: empty response");
     hasAnErrorOccurred = true;
   }
-  else if(!hasAnErrorOccurred && response?.data?.error_code)
+  else if(!hasAnErrorOccurred && response?.data?.error_code) 
   {
     console.log("an error occurred while fetching surveys and transactions: ", response.data?.error_message);
     hasAnErrorOccurred = true;
   }
 
-  if(hasAnErrorOccurred)
+  if(hasAnErrorOccurred) 
   {
     return Promise.reject();
   }
 
-  if(!response)
+  if(!response) 
   {
     console.log("no response from the api");
     return Promise.reject();
   }
 
-  if(!response?.data)
+  if(!response?.data) 
   {
     console.log("no data returned from the api");
     return Promise.reject();
   }
 
-  if(!response?.data.surveys)
+  if(!response?.data.surveys) 
   {
     console.log("no surveys returned from the api");
     return Promise.reject();
   }
 
-  console.log(`fetched ${response?.data?.count_available_surveys} surveys and ${response?.data?.transactions?.length} transactions successfully`);
+  console.log(
+    `fetched ${response?.data?.count_available_surveys} surveys and ${response?.data?.transactions?.length} transactions successfully`
+  );
 
   return {
     surveys: response.data.surveys,
@@ -71,11 +74,15 @@ export const fetchSurveysAndTransactionsApi = async (requestParams: IRequestPara
       currencySingular: response.data.text?.currency_name_singular,
       shortcutMin: response.data.text?.shortcurt_min,
     },
-    transactions: response.data.transactions
+    transactions: response.data.transactions,
   };
 };
 
-export const markTransactionAsPaidApi = async (transactionId: string, messageId: string, requestParams: IRequestParams): Promise<void> =>
+export const markTransactionAsPaidApi = async (
+  transactionId: string,
+  messageId: string,
+  requestParams: IRequestParams
+): Promise<void> => 
 {
   console.log("[markTransactionAsPaid]");
 
@@ -83,12 +90,12 @@ export const markTransactionAsPaidApi = async (transactionId: string, messageId:
     ...requestParams,
     messageId,
     transactionId,
-    transaction_set_paid: true
+    transaction_set_paid: true,
   };
 
   const requestConfig: AxiosRequestConfig = {
     params,
-    url: urls.apiUrl + endpoints.surveysEndpoint
+    url: urls.apiUrl + endpoints.surveysEndpoint,
   };
 
   console.log(`Mark transaction ${transactionId} as paid with url '${axios.getUri(requestConfig)}'`);
@@ -96,23 +103,24 @@ export const markTransactionAsPaidApi = async (transactionId: string, messageId:
   let response: AxiosResponse | undefined;
   let hasAnErrorOccurred = false;
 
-  try
+  try 
   {
-    response = await axios.get(urls.apiUrl + endpoints.surveysEndpoint, { params });
+    const queryString = buildQueryString(requestParams);
+    response = await axios.get(urls.apiUrl + endpoints.surveysEndpoint + queryString);
   }
-  catch (e)
+  catch (e) 
   {
     console.log("an error occurred while marking transaction as paid: ", e);
     hasAnErrorOccurred = true;
   }
 
-  if(response?.data?.error_code)
+  if(response?.data?.error_code) 
   {
     console.log("an error occurred while marking transaction as paid: ", response.data.error_message);
     hasAnErrorOccurred = true;
   }
 
-  if(hasAnErrorOccurred)
+  if(hasAnErrorOccurred) 
   {
     return;
   }
