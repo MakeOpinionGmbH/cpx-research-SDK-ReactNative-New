@@ -25,20 +25,25 @@ export const WebviewWrapper: FunctionComponent = () => {
   const { appContext, appDispatch } = useContext<IAppContext>(AppStoreContext);
 
   const {
-    config: { add_info, appId, userId },
+    config: { add_info, appId, userId, showLogs },
   } = appContext;
 
   const baseUrl = urls.baseUrl + endpoints.homeEndpoint;
   const requestParams = useMemo(() => getRequestParams(appId, userId, add_info), [appId, userId, add_info]);
 
-  console.log(requestParams);
+  {
+    showLogs && console.log(requestParams);
+  }
 
-  console.log(
-    buildQueryString({
-      ...requestParams,
-      survey_id: appContext.cpxState === "webViewSingleSurvey" ? appContext.singleSurveyIdForWebView : undefined,
-    })
-  );
+  {
+    showLogs &&
+      console.log(
+        buildQueryString({
+          ...requestParams,
+          survey_id: appContext.cpxState === "webViewSingleSurvey" ? appContext.singleSurveyIdForWebView : undefined,
+        })
+      );
+  }
 
   const tabs: ITabs = {
     help:
@@ -85,7 +90,9 @@ export const WebviewWrapper: FunctionComponent = () => {
         <WebviewIcon icon={homeIcon} isActive={activeTab === "home"} onPress={() => setActiveTab("home")} />
         <TouchableWithoutFeedback
           onPress={() => {
-            console.log("close webView");
+            {
+              showLogs && console.log("close webView");
+            }
 
             appDispatch({
               actionType: "setCpxState",

@@ -2,17 +2,11 @@ import { StackScreenProps } from "@react-navigation/stack";
 import CpxResearch, { CpxSurveyCards } from "cpx-research-sdk-react-native/src";
 import { emptyTexts, ITexts } from "cpx-research-sdk-react-native/src/context/context";
 import React, { FunctionComponent, useRef, useState } from "react";
-import {
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 
 import styles from "./screens.style";
 
-const HomeScreen: FunctionComponent<StackScreenProps<any>> = ({ navigation }) =>
-{
+const HomeScreen: FunctionComponent<StackScreenProps<any>> = ({ navigation }) => {
   const markTransactionAsPaidRef = useRef<(transactionId: string, messageId: string) => Promise<void> | undefined>();
   const fetchSurveysAndTransactionsRef = useRef<() => Promise<void> | undefined>();
   const openWebViewRef = useRef<(surveyId?: string) => void | undefined>();
@@ -29,13 +23,17 @@ const HomeScreen: FunctionComponent<StackScreenProps<any>> = ({ navigation }) =>
         appId="8614"
         userId="2"
         add_info="&additional_info1=123"
-        onSurveysUpdate={surveys => setSurveys(surveys)}
-        onTextsUpdate={texts => setTexts(texts)}
+        onSurveysUpdate={(surveys) => setSurveys(surveys)}
+        onTextsUpdate={(texts) => setTexts(texts)}
         onTransactionsUpdate={(transactions) => console.log("onSurveysUpdate Callback", transactions)}
-        onWebViewWasClosed={() => { /* do something */ }}
-        bindMarkTransactionAsPaid={markTransactionAsPaid => markTransactionAsPaidRef.current = markTransactionAsPaid}
-        bindFetchSurveysAndTransactions={fetchSurveysAndTransactions => fetchSurveysAndTransactionsRef.current = fetchSurveysAndTransactions}
-        bindOpenWebView={openWebView => openWebViewRef.current = openWebView}
+        onWebViewWasClosed={() => {
+          /* do something */
+        }}
+        bindMarkTransactionAsPaid={(markTransactionAsPaid) => (markTransactionAsPaidRef.current = markTransactionAsPaid)}
+        bindFetchSurveysAndTransactions={(fetchSurveysAndTransactions) =>
+          (fetchSurveysAndTransactionsRef.current = fetchSurveysAndTransactions)
+        }
+        bindOpenWebView={(openWebView) => (openWebViewRef.current = openWebView)}
         isHidden={isCpxLayerHidden}
         cornerWidget={{
           backgroundColor: "#ff9800",
@@ -79,7 +77,7 @@ const HomeScreen: FunctionComponent<StackScreenProps<any>> = ({ navigation }) =>
               cardBackgroundColor: "white",
               inactiveStarColor: "#dfdfdfff",
               starColor: "#ffc400",
-              textColor: "black"
+              textColor: "black",
             }}
             openWebView={openWebViewRef.current}
           />

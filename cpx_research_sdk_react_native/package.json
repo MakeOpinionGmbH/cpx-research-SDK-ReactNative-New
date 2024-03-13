@@ -1,6 +1,6 @@
 {
   "name": "cpx-research-sdk-reactnative-new",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "description": "CPX Research SDK React Native",
   "main": "lib/index.js",
   "repository": {

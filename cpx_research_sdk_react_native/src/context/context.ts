@@ -4,8 +4,7 @@ import { createContext, Dispatch } from "react";
 
 import { IAppContextActions } from "./reducer";
 
-interface IWidgetStyle
-{
+interface IWidgetStyle {
   backgroundColor: string;
   roundedCorners: number;
   text: string;
@@ -13,33 +12,28 @@ interface IWidgetStyle
   textSize: number;
 }
 
-interface IWidgetConfig
-{
+interface IWidgetConfig {
   isSingleSurvey?: boolean;
 }
 
-export interface ICornerWidgetStyle extends IWidgetStyle
-{
+export interface ICornerWidgetStyle extends IWidgetStyle {
   position: "topleft" | "topright" | "bottomright" | "bottomleft";
   size: number;
 }
 
-export interface INotificationWidgetStyle extends IWidgetStyle
-{
+export interface INotificationWidgetStyle extends IWidgetStyle {
   height: number;
   position: "top" | "bottom";
   width: number;
 }
 
-export interface ISidebarWidgetStyle extends IWidgetStyle
-{
+export interface ISidebarWidgetStyle extends IWidgetStyle {
   height: number;
   position: "left" | "right";
   width: number;
 }
 
-export interface ICpxConfig
-{
+export interface ICpxConfig {
   accentColor: string;
   add_info?: string;
   appId: string;
@@ -53,21 +47,20 @@ export interface ICpxConfig
   onTextsUpdate?: (texts: ITexts) => void;
   onTransactionsUpdate?: (transactions: any[]) => void;
   onWebViewWasClosed?: () => void;
+  showLogs: boolean;
   sidebarWidget?: ISidebarWidgetStyle & IWidgetConfig;
   userId: string;
 }
 
 export type TCpxState = "hidden" | "webView" | "webViewSingleSurvey" | "widgets";
 
-interface IWidgetImages
-{
+interface IWidgetImages {
   corner?: string;
   notification?: string;
   sidebar?: string;
 }
 
-export interface ITexts
-{
+export interface ITexts {
   currencyPlural: string;
   currencySingular: string;
   shortcutMin: string;
@@ -79,8 +72,7 @@ export const emptyTexts: ITexts = {
   shortcutMin: "",
 };
 
-export interface IAppStore
-{
+export interface IAppStore {
   config: ICpxConfig;
   cpxState: TCpxState;
   isNotificationWidgetHidden: boolean;
@@ -90,11 +82,12 @@ export interface IAppStore
   transactions: any[];
   widgetImages: IWidgetImages;
 }
- 
+
 export const initialAppStore: IAppStore = {
   config: {
     accentColor: "",
     appId: "-1",
+    showLogs: true,
     userId: "-1",
   },
   cpxState: "hidden",
@@ -108,11 +101,10 @@ export const initialAppStore: IAppStore = {
 
 export const getInitialAppStore = (config: ICpxConfig): IAppStore => ({
   ...initialAppStore,
-  config
+  config,
 });
 
-export interface IAppContext
-{
+export interface IAppContext {
   appContext: IAppStore;
   appDispatch: Dispatch<IAppContextActions>;
 }
